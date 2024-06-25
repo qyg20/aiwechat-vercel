@@ -1,11 +1,12 @@
 package api
 
 import (
-	"os"
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/pwh-pwh/aiwechat-vercel/chat"
 	"golang.org/x/text/encoding/simplifiedchinese"
-	"net/http"
 )
 
 func Chat(rw http.ResponseWriter, req *http.Request) {
@@ -25,6 +26,7 @@ func Chat(rw http.ResponseWriter, req *http.Request) {
 	rpn := bot.Chat("admin", msg)
 	s, err := simplifiedchinese.GBK.NewEncoder().String(rpn)
 	if err != nil {
+		fmt.Fprint(rw, "测试失败")
 		fmt.Fprint(rw, err.Error())
 		return
 	}
